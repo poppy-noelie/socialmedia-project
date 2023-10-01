@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello WelcomeController!{% endblock %}
+
+{% block body %}
+
+    <h1>Welcome ! </h1>
+    <h3>Please sign up or login to access or app !</h3>
+
+    <br> <br>
+
+    <a href="{{ path('app_login') }}">Login</a>
+
+    <br> <br>
+
+    <a href="{{ path('app_register') }}">Sign Up</a>
+{% endblock %}

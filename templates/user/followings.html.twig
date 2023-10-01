@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PostController!{% endblock %}
+
+{% block body %}
+
+    <h1>{{ targetUser.username }}'s followings : </h1>
+
+
+    {% for following in followings %}
+        <ul>
+            <li>
+                <a href="{{ path('app_user_profile', {'targetUser' : following.id}) }}">{{ following.username }}</a>
+            </li>
+        </ul>
+    {% endfor %}
+
+
+    {% include 'components/navbar.html.twig' %}
+
+{% endblock %}

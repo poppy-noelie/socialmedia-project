@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+{#    {% for post in posts %}#}
+
+        <div class="post-box">
+
+            <div class="user-post-bar">
+                <img class="profile-picture" src="{{ asset('img/profile.picture.jpeg') }}" alt="">
+                <div>
+                    <p>{{ targetUser.username }}</p>
+                    <p>publié le {{ post.createdAt|date("m/d/Y") }}</p>
+                </div>
+            </div>
+
+
+            <div class="post-content">
+                <h1>
+                    <a href="{{ path('app_post_show', {'post': post.id, 'targetUser': targetUser.id}) }}">{{ post.title }}</a>
+                </h1>
+                <p>{{ post.content }}</p>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+            <div class="post-footer">
+
+                <a href="{{ path('app_post_like', {'post': post.id, 'targetUser': targetUser.id, }) }}"><i class="fa-regular fa-heart"></i></a>
+
+                {% for like in post.likes %}
+
+                    {% if like.user.id is same as(app.user.id)%}
+                        <a href="{{ path('app_post_unlike', {'post': post.id, 'targetUser': targetUser.id, }) }}"><i class="fa-solid fa-heart"></i></a>
+                    {% endif %}
+
+                {% endfor %}
+
+
+
+                <button class="remove-style-btn">{{ post.likes.count }} like(s)</button>
+
+
+                {% if post.comments.count == 0 %}
+                    <p>Aucun commentaire</p>
+                {% elseif post.comments.count == 1 %}
+                    <button id="show-comment-button" class="remove-style-btn" data-post="{{ post.id }}">Voir le commentaire</button>
+                {% elseif post.comments.count > 1 %}
+                    <button id="show-comment-button" class="remove-style-btn" data-post="{{ post.id }}">Voir les {{ post.comments.count }} commentaires</button>
+                {% endif %}
+
+
+
+
+
+                {#                <a href="{{ path('app_post_comment', {'post' : post.id, 'targetUser' : targetUser.id}) }}">show comments</a>#}
+
+            </div>
+
+            <div class="comment-form">
+{#                {{ form_start(forms[post.id]) }}#}
+{#                {{ form_end(forms[post.id]) }}#}
+
+{#                {{ form(form) }}#}
+
+                {% include '/post/comment.html.twig' %}
+
+{#                {{ form_start(forms[post.id], {'action': path('app_post_comment', {'post' : post.id, 'targetUser' : targetUser.id})}) }}#}
+{#                {{ form_end(forms[post.id]) }}#}
+            </div>
+
+
+            <div class="" id="commentModale"></div>
+
+        </div>
+{#    {% endfor %}#}
+{% endblock %}
+
+

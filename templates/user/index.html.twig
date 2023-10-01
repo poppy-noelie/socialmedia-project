@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UserController!{% endblock %}
+
+{% block body %}
+
+    <h1 class="title">{{ targetUser.username }}</h1>
+
+    <div class="user-profile-bar">
+        <img class="profile-picture" src="{{ asset('img/profile.picture.jpeg') }}" alt="">
+            <a href="{{ path('app_followers', {'targetUser' : targetUser.id}) }}">
+                <p>Followers </p>
+                <p>{{ followers|length }}</p>
+            </a>
+            <a href="{{ path('app_followings', {'targetUser' : targetUser.id}) }}">
+                <p>Following </p>
+                <p>{{ followings|length }}</p>
+            </a>
+            <a href="">
+                <p>Posts</p>
+                <p>{{ posts|length }}</p>
+            </a>
+
+
+
+        {% if isFollowing == false %}
+            <a class="large-btn" href="{{ path('app_follow', {'targetUser': targetUser.id }) }}">follow</a>
+        {% endif %}
+
+        {% if isFollowing == true %}
+            <a class="large-btn" href="{{ path('app_unfollow', {'targetUser': targetUser.id }) }}">unfollow</a>
+        {% endif %}
+    </div>
+
+
+
+
+{#    <p>Vous êtes connecté en tant que {{ app.user.username }}</p>#}
+
+    <br> <br>
+
+{#    {% for post in posts %}#}
+{#        <a href="{{ path('app_post_show', {'post': post.id, 'targetUser': targetUser.id}) }}">#}
+{#            {% include 'post/index-single.html.twig' %}#}
+{#        </a>#}
+{#    {% endfor %}#}
+
+    {% for post in posts %}
+        {% include '/post/index.html.twig' %}
+    {% endfor %}
+
+
+
+
+    <br> <br>
+
+    {% include 'components/navbar.html.twig' %}
+
+{% endblock %}

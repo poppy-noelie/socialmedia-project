@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+
+    <h1 class="title">Home</h1>
+{#    <br>#}
+    <p>Vous êtes connecté en tant que {{ app.user.username }}</p>
+
+
+{#    <h3>Découvrez les utilisateurs que vous suivez:</h3>#}
+
+
+
+{#    {% for following in followings %}#}
+{#        <ul>#}
+{#            <li>#}
+{#                <a href="{{ path('app_user_profile', {'targetUser' : following.id}) }}">{{ following.username }}</a>#}
+{#            </li>#}
+{#        </ul>#}
+
+{#    {% endfor %}#}
+
+
+{#    <h3>Découvrez les derniers posts des utilisateurs que vous suivez:</h3>#}
+
+{#    {% for following in followings %}#}
+{#        <ul>#}
+{#            <a href="">#}
+{#                <li>#}
+{#                    {{ following.posts|last.title }}#}
+{#                </li>#}
+{#                <li>#}
+{#                    {{ following.posts|last.content }}#}
+{#                </li>#}
+{#            </a>#}
+{#        </ul>#}
+{#    {% endfor %}#}
+
+    {% for following in followings %}
+        {% for post in following.posts %}
+{#            {{ dump(following.posts) }}#}
+{#            {% include '/post/index.html.twig' %}#}
+        {% endfor %}
+    {% endfor %}
+
+
+
+
+
+
+
+
+
+    {% include 'components/navbar.html.twig' %}
+
+{% endblock %}
