@@ -100,42 +100,13 @@ class UserRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function getLastUserPost(int $user_id)
+    public function searchBy(string $query)
     {
         return $this->createQueryBuilder('u')
-            ->join('u.posts', 'p')
-            ->where('u.user = :$user_id')
-            ->orderBy('p.createdAt', 'DESC')
-            ->setParameter('user_id', $user_id)
+            ->select('u')
+            ->where('u.username LIKE :query')
+            ->setParameter('query', '%' . $query . '%')
             ->getQuery()
             ->getResult();
     }
-
-
-
-
-//    /**
-//     * @return User[] Returns an array of User objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('u')
-//            ->andWhere('u.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('u.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?User
-//    {
-//        return $this->createQueryBuilder('u')
-//            ->andWhere('u.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }

@@ -49,7 +49,10 @@ class PostController extends AbstractController
             $this->em->flush();
 
             return $this->redirectToRoute('app_user_profile', ['targetUser' => $this->getUser()->getId()]);
+        } else {
+            $this->addFlash('error', 'erreur test');
         }
+
 
         return $this->render('post/new.html.twig', [
             'form' => $form,
@@ -84,7 +87,7 @@ class PostController extends AbstractController
 
     //HANDLE LIKES
     #[Route('/post/{post}/like/{targetUser}', name: 'app_post_like')]
-    public function like(Post $post, User $targetUser, LikeRepository $likeRepository): Response
+    public function like(Post $post, User $targetUser, LikeRepository $likeRepository, Request $request): Response
     {
 //        dd('test');
         $existingLike = $likeRepository->findOneBy(['user' => $this->getUser(), 'post' => $post]);
@@ -100,14 +103,14 @@ class PostController extends AbstractController
             $this->em->flush();
         }
 
-        return $this->redirectToRoute('app_user_profile', ['targetUser' => $targetUser->getId()]);
-//        return $this->redirectToRoute('app_post_show', ['targetUser' => $targetUser->getId(), 'post' => $post->getId()]);
+        $route = $request->headers->get('referer');
 
+        return $this->redirect($route);
     }
 
 
     #[Route('/post/{post}/unlike/{targetUser}', name: 'app_post_unlike')]
-    public function unlike(Post $post, User $targetUser, LikeRepository $likeRepository): Response
+    public function unlike(Post $post, User $targetUser, LikeRepository $likeRepository, Request $request): Response
     {
 
         $existingLike = $likeRepository->findOneBy(['user' => $this->getUser(), 'post' => $post]);
@@ -117,63 +120,10 @@ class PostController extends AbstractController
             $this->em->flush();
         }
 
-        return $this->redirectToRoute('app_user_profile', ['targetUser' => $targetUser->getId()]);
-//        return $this->redirectToRoute('app_post_show', ['targetUser' => $targetUser->getId(), 'post' => $post->getId()]);
+        $route = $request->headers->get('referer');
 
+        return $this->redirect($route);
     }
-
-
-//    #[Route('/comment/{post}/{targetUser}', name: 'app_post_new_comment', methods: ['GET'])]
-//    public function newComment(Post $post, User $targetUser, Request $request): Response
-//    {
-//        if (!$this->getUser()) {
-//            return $this->redirectToRoute('app_welcome');
-//        }
-//
-//        $comment = new Comment();
-//        $comment->setUser($this->getUser());
-//        $comment->setPost($post);
-//
-//        $form = $this->createForm(CommentType::class, $comment);
-//        $form->handleRequest($request);
-//
-//        if ($form->isSubmitted() && $form->isValid()) {
-//
-//            $comment->setCreatedAt(new \DateTimeImmutable('now'));
-//            $this->em->persist($comment);
-//            $this->em->flush();
-//
-//            return $this->redirectToRoute('app_user_profile', ['targetUser' => $targetUser->getId()]);
-//        }
-//
-//        return $this->render('post/comment.new.html.twig', [
-//            'form' => $form,
-//            'post' => $post,
-//        ]);
-//    }
-//
-//
-//
-//    #[Route('/comments/{post}', name: 'app_post_comments_show', methods: ['GET'])]
-//    public function showComments(Post $post, PostRepository $postRepository): Response
-//    {
-//        if (!$this->getUser()) {
-//            return $this->redirectToRoute('app_welcome');
-//        }
-//
-//        $targetPost = $postRepository->findOneBy(['id' => $post->getId()]);
-//
-//
-//        return $this->render('post/comment.html.twig', [
-//            'targetPost' => $targetPost,
-//        ]);
-//    }
-
-
-
-
-
-
 
 
     #[Route('/comment/{post}/{targetUser}', name: 'app_post_comment', methods: ['GET', 'POST'])]
@@ -196,8 +146,9 @@ class PostController extends AbstractController
             $this->em->persist($comment);
             $this->em->flush();
 
-            return $this->redirectToRoute('app_user_profile', ['targetUser' => $targetUser->getId()]);
-        }
+            $route = $request->headers->get('referer');
+
+            return $this->redirect($route);        }
 
         return $this->render('post/comment.html.twig', [
             'form' => $form,
@@ -213,10 +164,6 @@ class PostController extends AbstractController
     {
         $DBComments = $commentRepository->findBy(['post' => $post->getId()]);
 
-//        $comments = array_map(function($comment) {
-//            return (array) $comment;
-//        }, $comments );
-
         $comments = [];
         foreach($DBComments as $comment) {
             $comments[] = [
@@ -231,9 +178,6 @@ class PostController extends AbstractController
     }
 
         return $this->json( $comments, 200, [], ['groups' => ['comments:read']] );
-//        return new JsonResponse([
-//            'comments' => $comments,
-//        ]);
     }
 
 

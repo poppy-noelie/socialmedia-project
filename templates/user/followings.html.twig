@@ -4,17 +4,27 @@
 
 {% block body %}
 
-    <h1>{{ targetUser.username }}'s followings : </h1>
+    <div class="container">
+        <h2>{{ targetUser.username }}'s followings : </h2>
 
+            {% if followings is defined %}
+                {% for following in followings %}
+                    <div class="post-box">
+                        <ul>
+                            <li>
+                                <a href="{{ path('app_user_profile', {'targetUser' : following.id}) }}">{{ following.username }}</a>
+                            </li>
+                        </ul>
+                    </div>
+                {% endfor %}
+            {% else %}
 
-    {% for following in followings %}
-        <ul>
-            <li>
-                <a href="{{ path('app_user_profile', {'targetUser' : following.id}) }}">{{ following.username }}</a>
-            </li>
-        </ul>
-    {% endfor %}
+            <div class="post-box">
+                <p>Nobody's following Pierre</p>
+            </div>
 
+            {% endif %}
+    </div>
 
     {% include 'components/navbar.html.twig' %}
 

@@ -4,15 +4,27 @@
 
 {% block body %}
 
-    <h1>{{ targetUser.username }}'s followers : </h1>
+    <div class="container">
+        <h2>{{ targetUser.username }}'s followers : </h2>
 
-    {% for follower in followers %}
-        <ul>
-            <li>
-                <a href="{{ path('app_user_profile', {'targetUser' : follower.id}) }}">{{ follower.username }}</a>
-            </li>
-        </ul>
-    {% endfor %}
+        {% if followers is defined %}
+            {% for follower in followers %}
+                <div class="post-box">
+                    <ul>
+                        <li>
+                            <a href="{{ path('app_user_profile', {'targetUser' : follower.id}) }}">{{ follower.username }}</a>
+                        </li>
+                    </ul>
+                </div>
+            {% endfor %}
+        {% else %}
+
+            <div class="post-box">
+                <p>{{ targetUser.username }} is not following anyone</p>
+            </div>
+
+        {% endif %}
+    </div>
 
     {% include 'components/navbar.html.twig' %}
 

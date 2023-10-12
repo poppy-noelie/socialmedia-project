@@ -39,28 +39,19 @@ class PostRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Post[] Returns an array of Post objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
 
-//    public function findOneBySomeField($value): ?Post
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+
+
+
+    public function getLastsFollowingUserPost(int $user_id)
+    {
+        return $this->createQueryBuilder('p')
+            ->join('p.user', 'u')
+            ->where('p.user = :user_id')
+            ->orderBy('p.createdAt', 'DESC')
+            ->setParameter('user_id', $user_id)
+            ->setMaxResults(2)
+            ->getQuery()
+            ->getResult();
+    }
 }

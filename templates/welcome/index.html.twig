@@ -4,14 +4,18 @@
 
 {% block body %}
 
-    <h1>Welcome ! </h1>
-    <h3>Please sign up or login to access or app !</h3>
+    <div class="welcome-page">
 
-    <br> <br>
+        <div class="container-unlogged">
+            <h1 class="title">Welcome ! </h1>
 
-    <a href="{{ path('app_login') }}">Login</a>
+            <div class="post-box welcome-box">
+                <h3>Please sign up or login to access or app !</h3>
+                <a class="large-btn" href="{{ path('app_login') }}">Login</a>
+                <a class="large-btn" href="{{ path('app_register') }}">Sign Up</a>
+            </div>
 
-    <br> <br>
+        </div>
+    </div>
 
-    <a href="{{ path('app_register') }}">Sign Up</a>
 {% endblock %}

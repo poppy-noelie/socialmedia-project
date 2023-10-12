@@ -1,86 +1,68 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-{#    {% for post in posts %}#}
+    {% for post in posts|reverse %}
 
-        <div class="post-box">
+            <div class="post-box">
 
-            <div class="user-post-bar">
-                <img class="profile-picture" src="{{ asset('img/profile.picture.jpeg') }}" alt="">
-                <div>
-                    <p>{{ targetUser.username }}</p>
-                    <p>publié le {{ post.createdAt|date("m/d/Y") }}</p>
+                <div class="user-post-bar">
+                    <img class="profile-picture" src="{{ asset('img/profile.picture.jpeg') }}" alt="">
+                    <div>
+                        <p>
+                            <a href="{{ path('app_user_profile', {'targetUser' : post.user.id}) }}">                            {{ post.user.username }}
+                            </a>
+                        </p>
+                        <p>publié le {{ post.createdAt|date("m/d/Y") }}</p>
+                    </div>
                 </div>
-            </div>
 
 
-            <div class="post-content">
-                <h1>
-                    <a href="{{ path('app_post_show', {'post': post.id, 'targetUser': targetUser.id}) }}">{{ post.title }}</a>
-                </h1>
-                <p>{{ post.content }}</p>
-            </div>
-
-
+                <div class="post-content">
+                    <h3>
+                        <a href="{{ path('app_post_show', {'post': post.id, 'targetUser': targetUser.id}) }}">{{ post.title }}</a>
+                    </h3>
+                    <p>{{ post.content }}</p>
+                </div>
 
 
 
+                <div class="post-footer">
 
-
-
-
-
-
-            <div class="post-footer">
-
-                <a href="{{ path('app_post_like', {'post': post.id, 'targetUser': targetUser.id, }) }}"><i class="fa-regular fa-heart"></i></a>
-
-                {% for like in post.likes %}
-
-                    {% if like.user.id is same as(app.user.id)%}
-                        <a href="{{ path('app_post_unlike', {'post': post.id, 'targetUser': targetUser.id, }) }}"><i class="fa-solid fa-heart"></i></a>
+                    {% if isLiked[post.id] == false %}
+                        <a href="{{ path('app_post_like', {'post': post.id, 'targetUser': targetUser.id, }) }}"><i class="fa-regular fa-heart"></i></a>
                     {% endif %}
 
-                {% endfor %}
+                    {% if isLiked[post.id] == true %}
+                        <a class="liked" href="{{ path('app_post_unlike', {'post': post.id, 'targetUser': targetUser.id, }) }}"><i class="fa-solid fa-heart"></i></a>
+
+                    {% endif %}
 
 
 
-                <button class="remove-style-btn">{{ post.likes.count }} like(s)</button>
+                    <button class="remove-style-btn">{{ post.likes.count }} like(s)</button>
 
 
-                {% if post.comments.count == 0 %}
-                    <p>Aucun commentaire</p>
-                {% elseif post.comments.count == 1 %}
-                    <button id="show-comment-button" class="remove-style-btn" data-post="{{ post.id }}">Voir le commentaire</button>
-                {% elseif post.comments.count > 1 %}
-                    <button id="show-comment-button" class="remove-style-btn" data-post="{{ post.id }}">Voir les {{ post.comments.count }} commentaires</button>
-                {% endif %}
+                    {% if post.comments.count == 0 %}
+                        <p>Aucun commentaire</p>
+                    {% elseif post.comments.count == 1 %}
+                        <button id="show-comment-button" class="remove-style-btn" data-post="{{ post.id }}">Voir le commentaire</button>
+                    {% elseif post.comments.count > 1 %}
+                        <button id="show-comment-button" class="remove-style-btn" data-post="{{ post.id }}">Voir les {{ post.comments.count }} commentaires</button>
+                    {% endif %}
+
+                </div>
 
 
 
+                            <div class="comment-form">
+                                {% include '/post/comment.html.twig' %}
+                            </div>
 
 
-                {#                <a href="{{ path('app_post_comment', {'post' : post.id, 'targetUser' : targetUser.id}) }}">show comments</a>#}
+                <div class="" id="commentModale"></div>
 
             </div>
-
-            <div class="comment-form">
-{#                {{ form_start(forms[post.id]) }}#}
-{#                {{ form_end(forms[post.id]) }}#}
-
-{#                {{ form(form) }}#}
-
-                {% include '/post/comment.html.twig' %}
-
-{#                {{ form_start(forms[post.id], {'action': path('app_post_comment', {'post' : post.id, 'targetUser' : targetUser.id})}) }}#}
-{#                {{ form_end(forms[post.id]) }}#}
-            </div>
-
-
-            <div class="" id="commentModale"></div>
-
-        </div>
-{#    {% endfor %}#}
+    {% endfor %}
 {% endblock %}
 
 

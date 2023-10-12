@@ -114,7 +114,6 @@ class Post
     public function removeLike(Like $like): self
     {
         if ($this->likes->removeElement($like)) {
-            // set the owning side to null (unless already changed)
             if ($like->getPost() === $this) {
                 $like->setPost(null);
             }
@@ -144,7 +143,6 @@ class Post
     public function removeComment(Comment $comment): self
     {
         if ($this->comments->removeElement($comment)) {
-            // set the owning side to null (unless already changed)
             if ($comment->getPost() === $this) {
                 $comment->setPost(null);
             }

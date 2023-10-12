@@ -4,16 +4,24 @@
 
 {% block body %}
 
-    <h1 class="title">Créer un post</h1>
+    <div class="container">
+        <h1 class="title">Créer un post</h1>
 
-    <div class="post-box">
+        <div class="post-box login-box">
 
-        <div class="new-post-form">
-            {{ form(form) }}
+            <div class="new-post-form">
+
+                {{ form(form) }}
+            </div>
+                {% if flash is defined %}
+                    {% if flash.error %}
+                        <div class="alert alert-danger">{{ flash.error }}</div>
+                    {% endif %}
+                {% endif %}
         </div>
 
+
+        {% include 'components/navbar.html.twig' %}
     </div>
 
-
-    {% include 'components/navbar.html.twig' %}
 {% endblock %}

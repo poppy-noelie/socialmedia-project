@@ -3,9 +3,12 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <h1 class="title">Sign up!</h1>
 
-    <div class="post-box">
-        {{ form(registrationForm) }}
+    <div class="container-unlogged">
+        <h1 class="title">Sign up!</h1>
+
+        <div class="post-box login-box">
+            {{ form(registrationForm) }}
+        </div>
     </div>
 {% endblock %}

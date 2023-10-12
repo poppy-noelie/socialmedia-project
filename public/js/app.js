@@ -11,7 +11,6 @@ function generateCommentsList(comments)
         commentLi.classList.add('comment-box')
 
         commentLi.innerHTML = `
-<!--                                <img class="profile-picture" src="{{ asset('img/profile.picture.jpeg') }}" alt="">-->
                                 <h3>${comment.user.username}</h3>
                                 <p>${ comment.content }</p>
                             `
@@ -68,16 +67,4 @@ function displayModal(e, commentsModale) {
         }
 
 
-
     })
-
-
-    // document.addEventListener('DOMContentLoaded', () => {
-    //
-    //     const closeModaleButton = document.querySelector("#closeModale")
-    //     const commentsModale = document.querySelector("#commentModale")
-    //
-    //     closeModaleButton.addEventListener('click', () => {
-    //         commentsModale.classList.remove('show');
-    //     })
-    // })

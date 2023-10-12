@@ -7,6 +7,7 @@ use App\Entity\Following;
 use App\Entity\User;
 use App\Form\CommentType;
 use App\Repository\FollowingRepository;
+use App\Repository\LikeRepository;
 use App\Repository\PostRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -23,7 +24,7 @@ class UserController extends AbstractController
 
     //RENDER USER PROFILE
     #[Route('/user/{targetUser}', name: 'app_user_profile')]
-    public function index(User $targetUser, UserRepository $userRepository, PostRepository $postRepository, FollowingRepository $followingRepository): Response
+    public function index(User $targetUser, UserRepository $userRepository, PostRepository $postRepository, FollowingRepository $followingRepository, LikeRepository $likeRepository): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_welcome');
@@ -48,6 +49,11 @@ class UserController extends AbstractController
         //check if the user is already following the target user or not
         $isFollowing = $followingRepository->isFollowing($this->getUser()->getId(), $targetUser->getId());
 
+        $isLiked= [];
+        foreach($posts as $post) {
+            $isLiked[$post->getId()] = $likeRepository->isLiked($this->getUser()->getId(), $post->getId());
+        }
+
         //get comment form on every posts
         $comment = new Comment();
         $forms = [];
@@ -63,10 +69,6 @@ class UserController extends AbstractController
             $forms[$post->getId()] = $form->createView();
         }
 
-//        dd($forms);
-
-//        dd($posts);
-
         return $this->render('user/index.html.twig', [
             'posts' => $posts,
             'targetUser' => $targetUser,
@@ -74,6 +76,7 @@ class UserController extends AbstractController
             'followings' => $followings,
             'isFollowing' => $isFollowing,
             'forms' => $forms,
+            'isLiked' => $isLiked,
         ]);
     }
 
@@ -147,12 +150,10 @@ class UserController extends AbstractController
             $followingIds[] = $userId;
         }
 
-//        $followings = $userRepository->findBy(['id' => $followingIds]);
-        $posts = $postRepository->findBy(['user' => $targetUser->getId()]);
-//        dd($posts);
+        $followings = $userRepository->findBy(['id' => $followingIds]);
 
         return $this->render('user/followings.html.twig', [
-//            'followings' => $followings,
+            'followings' => $followings,
             'targetUser' => $targetUser,
         ]);
     }

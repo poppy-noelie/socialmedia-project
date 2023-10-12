@@ -4,9 +4,19 @@
 body{
     background-color: black;
     color:white;
-    margin:5vw;
+    margin: 0 auto;
     padding:0;
     font-family: 'Montserrat', sans-serif;
+    width:100%;
+    font-size: 2rem;
+}
+
+.container {
+    margin: 5vw;
+}
+
+.container-unlogged {
+    margin: 5vw;
 }
 
 ul {
@@ -19,6 +29,7 @@ a {
     text-decoration: none;
     color:inherit;
 }
+
 
 .remove-style-btn {
     background: none;
@@ -41,9 +52,8 @@ a {
     width: 100%;
     display: block;
     text-align: center;
-    font-size: 2rem;
+    margin: 5vw 0;
 }
-
 
 
 /* NAVBAR */
@@ -74,16 +84,47 @@ a {
     overflow: hidden;
 }
 
-.user-profile-bar {
+.user-bar {
     display:flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    font-size:2rem;
+    /*font-size:2rem;*/
 }
 
-.user-profile-bar a {
+.user-bar a {
     text-align: center;
 }
+
+
+/* WELCOME PAGE */
+
+.welcome-page {
+    background-image: url("../img/welcome-bgc.jpeg");
+    width:100%;
+    height:100%;
+    background-size:cover;
+    background-repeat: no-repeat;
+    position:absolute;
+}
+
+.welcome-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20vw;
+    align-self: center;
+}
+
+.welcome-box a {
+    margin: 5vw;
+}
+
+.welcome-page .container-unlogged {
+    display:flex;
+    flex-direction: column;
+}
+
+
 
 
 /* POSTS */
@@ -103,7 +144,7 @@ a {
 }
 
 .post-content p {
-    font-size:0.9rem;
+    font-size:1.5rem;
 }
 
 .user-post-bar {
@@ -145,6 +186,38 @@ a {
     font-size: 3rem;
 }
 
+textarea {
+    font-family: 'Montserrat', sans-serif;
+    height: 300px;
+}
+
+.liked {
+    color: red;
+}
+
+/* FORMS */
+
+.form-input {
+    width:100%;
+    background-color: #202124;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 2vw 0vw 2vw 2vw;
+    font-size: 2rem;
+    margin-top: 5vw;
+    color:white;
+}
+
+.new-post-form form #post {
+    display: flex;
+    flex-direction:column;
+}
+
+.new-post-form form #post button {
+    margin-top:5vw;
+}
+
+
 /* COMMENTS */
 
 #commentModale {
@@ -153,7 +226,7 @@ a {
     display:none;
     width:100%;
     height:100%;
-    font-size:2rem;
+    /*font-size:2rem;*/
     border-radius:25px;
 }
 
@@ -176,45 +249,210 @@ a {
 
 .comment-form form {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 
-.comment-form-input {
+.form-input-comment {
     width: 700px;
     padding: 2vw 0vw 2vw 2vw;
     margin-top: 2vw;
     background-color: #202124;
     border: 1px solid black;
     border-radius: 10px;
-    font-size: 2rem;
+    /*font-size: 2rem;*/
 }
 
-.comment-form form div button {
-    padding: 2.7vw 0vw 0vw 2vw;
+/*.comment-form form div button {*/
+/*    padding: 1vw 0vw 0vw 1vw;*/
+/*    font-size: 4rem;*/
+/*}*/
+
+
+/* SEARCHBAR*/
+
+#search_bar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5vw;
 }
 
-
-/* FORMS */
-
-.form-input {
-    width:100%;
-    background-color: #202124;
-    border: 1px solid black;
-    border-radius: 10px;
-    padding: 2vw 0vw 2vw 2vw;
+#search_bar div input, .form-input-comment {
     font-size: 2rem;
-    margin-top: 5vw;
+    margin: 0;
     color:white;
 }
 
-.new-post-form form #post {
-    display: flex;
-    flex-direction:column;
+#search_bar div button, .comment-form form div button {
+    font-size: 2rem;
+    background-color: #202124;
+    border-radius: 15px;
+    height: 100%;
+    padding: 2vw 4vw;
+    border: solid 1px black;
 }
 
-.new-post-form form #post button {
-    margin-top:15vw;
+
+
+
+/* RESPONSIVE */
+
+/* TABLET */
+
+@media only screen and (min-device-width: 600px) {
+
+    /* GENERAL */
+
+    body {
+        font-size: 1rem;
+    }
+
+    .title {
+        font-size: 4rem;
+    }
+
+    /* LOGIN */
+
+    .login-box {
+        margin: 10vw 15vw 2vw 15vw !important;
+        padding: 2vw 5vw 2vw 5vw !important;
+    }
+
+    /* WELCOME PAGE */
+
+    .welcome-box {
+        margin-top: 10vw;
+    }
+
+    /* FORMS */
+
+    .form-input {
+        font-size: 1rem;
+    }
+
+
 }
+
+/* LAPTOP */
+
+@media only screen and (min-device-width: 600px) {
+
+
+    /* GENERAL */
+
+    .container {
+        margin: 5vw 5vw 5vw 15vw;
+    }
+
+    .title {
+        font-size: 2rem;
+    }
+
+    .large-btn {
+        margin: 2vw 0;
+        padding: 1vw;
+    }
+
+    textarea {
+        height: 150px;
+    }
+
+    /* USER */
+
+    .user-post-bar div p:first-of-type {
+        font-size: 2rem;
+    }
+
+    .profile-picture {
+        height: 100px;
+        width: 100px;
+    }
+
+    .user-bar {
+        margin: 7vw;
+    }
+
+
+    /* POSTS */
+
+    .user-post-bar {
+        margin-bottom: 3vw;
+    }
+
+    .post-box {
+        padding: 2vw;
+        margin: 7vw;
+    }
+
+    .post-footer button, .post-footer p {
+        font-size: 1rem;
+    }
+
+    .post-footer a {
+        font-size: 2rem;
+    }
+
+    .post-content p {
+        font-size: 1rem;
+    }
+
+    .user-post-bar div p:last-child {
+        font-size: 1rem;
+    }
+
+
+    /* NAVBAR */
+
+    .navbar {
+        padding: 0;
+        height: 100%;
+        width: 8%;
+    }
+
+    .navbar ul {
+        display: flex;
+        flex-direction: column;
+        background-color: #202124;
+    }
+
+    .navbar ul li {
+        text-align: center;
+        margin-bottom: 10vw;
+    }
+
+    .navbar ul li a i {
+        font-size: 2rem;
+    }
+
+    /* SEARCHBAR */
+
+    #search_bar {
+        margin: 7vw;
+    }
+
+    #search_bar div input {
+        font-size: 1rem;
+    }
+
+    #search_bar div button, .comment-form form div button {
+        font-size: 1rem;
+        padding: 1vw 3vw;
+    }
+
+    /* FORMS */
+
+    .form-input-comment {
+        font-size: 1rem;
+        width: 90%;
+    }
+
+    .comment-form form div:first-child, #search_bar div:first-child {
+        width: 100%;
+    }
+
+}
+
+
+
 
 
 

@@ -4,54 +4,22 @@
 
 {% block body %}
 
-    <h1 class="title">Home</h1>
-{#    <br>#}
-    <p>Vous êtes connecté en tant que {{ app.user.username }}</p>
+    <div class="container">
+        <div class="">
+            <h1 class="title">Home</h1>
+
+            {{ form(searchbar) }}
+        </div>
 
 
-{#    <h3>Découvrez les utilisateurs que vous suivez:</h3>#}
+        {% if posts is empty %}
+            <h3>Start following people to see their posts !</h3>
+            {% else %}
+                {% include '/post/index.html.twig' %}
+        {% endif %}
 
 
-
-{#    {% for following in followings %}#}
-{#        <ul>#}
-{#            <li>#}
-{#                <a href="{{ path('app_user_profile', {'targetUser' : following.id}) }}">{{ following.username }}</a>#}
-{#            </li>#}
-{#        </ul>#}
-
-{#    {% endfor %}#}
-
-
-{#    <h3>Découvrez les derniers posts des utilisateurs que vous suivez:</h3>#}
-
-{#    {% for following in followings %}#}
-{#        <ul>#}
-{#            <a href="">#}
-{#                <li>#}
-{#                    {{ following.posts|last.title }}#}
-{#                </li>#}
-{#                <li>#}
-{#                    {{ following.posts|last.content }}#}
-{#                </li>#}
-{#            </a>#}
-{#        </ul>#}
-{#    {% endfor %}#}
-
-    {% for following in followings %}
-        {% for post in following.posts %}
-{#            {{ dump(following.posts) }}#}
-{#            {% include '/post/index.html.twig' %}#}
-        {% endfor %}
-    {% endfor %}
-
-
-
-
-
-
-
-
+    </div>
 
     {% include 'components/navbar.html.twig' %}
 
