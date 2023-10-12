@@ -23,19 +23,32 @@
                 </a>
 
 
+            {% if targetUser.id is not same as app.user.id %}
+                {% if isFollowing == false %}
+                    <a class="large-btn" href="{{ path('app_follow', {'targetUser': targetUser.id }) }}">follow</a>
+                {% endif %}
 
-            {% if isFollowing == false %}
-                <a class="large-btn" href="{{ path('app_follow', {'targetUser': targetUser.id }) }}">follow</a>
+                {% if isFollowing == true %}
+                    <a class="large-btn" href="{{ path('app_unfollow', {'targetUser': targetUser.id }) }}">unfollow</a>
+                {% endif %}
+            {% else%}
+                <a class="large-btn" href="">Your profile</a>
             {% endif %}
 
-            {% if isFollowing == true %}
-                <a class="large-btn" href="{{ path('app_unfollow', {'targetUser': targetUser.id }) }}">unfollow</a>
-            {% endif %}
+
+
         </div>
 
-        <div class="posts">
+        {% if posts is empty %}
+            <div class="post-box blank">
+                <p>No posts</p>
+            </div>
+        {% endif %}
+
+        {% for post in posts|reverse %}
             {% include '/post/index.html.twig' %}
-        </div>
+        {% endfor %}
+
 
 
     </div>

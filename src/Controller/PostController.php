@@ -83,6 +83,29 @@ class PostController extends AbstractController
     }
 
 
+    #[Route('/delete/post/{post}', name: 'app_post_delete')]
+    public function delete(Post $post, PostRepository $postRepository): Response
+    {
+        $postToDelete = $postRepository->find($post);
+        $likesToDelete = $postToDelete->getLikes();
+        $commentsToDelete = $postToDelete->getComments();
+
+        foreach ($likesToDelete as $like) {
+            $this->em->remove($like);
+        }
+
+        foreach ($commentsToDelete as $comment) {
+            $this->em->remove($comment);
+        }
+
+        $this->em->remove($postToDelete);
+        $this->em->flush();
+
+        return $this->redirectToRoute('app_user_profile', ['targetUser' => $this->getUser()->getId()]);
+
+    }
+
+
 
 
     //HANDLE LIKES

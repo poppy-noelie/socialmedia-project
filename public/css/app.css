@@ -55,6 +55,10 @@ a {
     margin: 5vw 0;
 }
 
+.blank {
+    text-align: center;
+}
+
 
 /* NAVBAR */
 
@@ -195,6 +199,12 @@ textarea {
     color: red;
 }
 
+.delete-btn {
+    margin-left: auto;
+    margin-right: 0;
+    font-size: 2.5rem;
+}
+
 /* FORMS */
 
 .form-input {
@@ -222,11 +232,9 @@ textarea {
 
 #commentModale {
     background-color: #202124;
-    /*background-color: red;*/
     display:none;
     width:100%;
     height:100%;
-    /*font-size:2rem;*/
     border-radius:25px;
 }
 
@@ -397,6 +405,14 @@ textarea {
 
     .user-post-bar div p:last-child {
         font-size: 1rem;
+    }
+
+    .delete-btn {
+        font-size: 1.5rem;
+    }
+
+    .fa-xmark {
+        font-size: 2rem;
     }
 
 

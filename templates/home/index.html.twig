@@ -13,9 +13,13 @@
 
 
         {% if posts is empty %}
-            <h3>Start following people to see their posts !</h3>
+            <div class="post-box blank">
+                <h3>Start following people to see their posts !</h3>
+            </div>
             {% else %}
-                {% include '/post/index.html.twig' %}
+                {% for post in posts %}
+                    {% include '/post/index.html.twig' %}
+                {% endfor %}
         {% endif %}
 
 

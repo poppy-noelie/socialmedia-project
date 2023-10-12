@@ -1,19 +1,25 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {% for post in posts|reverse %}
+{#    {% for post in posts|reverse %}#}
 
             <div class="post-box">
 
                 <div class="user-post-bar">
+
                     <img class="profile-picture" src="{{ asset('img/profile.picture.jpeg') }}" alt="">
                     <div>
                         <p>
-                            <a href="{{ path('app_user_profile', {'targetUser' : post.user.id}) }}">                            {{ post.user.username }}
+                            <a href="{{ path('app_user_profile', {'targetUser' : post.user.id}) }}">
+                                {{ post.user.username }}
                             </a>
                         </p>
                         <p>publié le {{ post.createdAt|date("m/d/Y") }}</p>
                     </div>
+
+                    {% if post.user.id is same as app.user.id  %}
+                        <a class="delete-btn" href="{{ path('app_post_delete', {'post' : post.id}) }}"><i class="fa-regular fa-trash-can"></i></a>
+                    {% endif %}
                 </div>
 
 
@@ -62,7 +68,7 @@
                 <div class="" id="commentModale"></div>
 
             </div>
-    {% endfor %}
+{#    {% endfor %}#}
 {% endblock %}
 
 
