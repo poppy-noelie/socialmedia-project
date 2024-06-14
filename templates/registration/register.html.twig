@@ -1,14 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Register - Join Our App Today{% endblock %}
+
+{% block meta %}
+    <meta name="description" content="Create an account with us to start enjoying our amazing features. Sign up now!">
+{% endblock %}
 
 {% block body %}
 
-    <div class="container-unlogged">
-        <h1 class="title">Sign up!</h1>
+    <main class="container-unlogged">
 
-        <div class="post-box login-box">
-            {{ form(registrationForm) }}
-        </div>
-    </div>
+        <section class="registration-section" role="region" aria-labelledby="registration-heading">
+            <h1 class="title" id="registration-heading">Sign up for Our App</h1>
+
+            <div class="post-box login-box">
+                {{ form_start(registrationForm, {'attr': {'aria-label': 'Registration Form'}}) }}
+                {{ form_widget(registrationForm) }}
+                {{ form_end(registrationForm) }}
+            </div>
+        </section>
+
+    </main>
 {% endblock %}

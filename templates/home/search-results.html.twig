@@ -4,7 +4,7 @@
     <div class="container">
         <h1 class="title">Results :</h1>
             {% for result in results %}
-                <div class="post-box">
+                <div class="follow-box">
                     <ul>
                         <li>
                             <a href="{{ path('app_user_profile', {'targetUser' : result.id}) }}">{{ result.username }}</a>

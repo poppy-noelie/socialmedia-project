@@ -1,31 +1,73 @@
+{#{% extends 'base.html.twig' %}#}
+
+{#{% block title %}Hello PostController!{% endblock %}#}
+
+{#{% block body %}#}
+
+{#    <div class="container">#}
+{#        <h2>{{ targetUser.username }}'s followings : </h2>#}
+
+{#            {% if followings is defined %}#}
+{#                {% for following in followings %}#}
+{#                    <div class="follow-box">#}
+{#                        <ul>#}
+{#                            <li>#}
+{#                                <a href="{{ path('app_user_profile', {'targetUser' : following.id}) }}">{{ following.username }}</a>#}
+{#                            </li>#}
+{#                        </ul>#}
+{#                    </div>#}
+{#                {% endfor %}#}
+{#            {% else %}#}
+
+{#            <div class="post-box">#}
+{#                <p>Nobody's following Pierre</p>#}
+{#            </div>#}
+
+{#            {% endif %}#}
+{#    </div>#}
+
+{#    {% include 'components/navbar.html.twig' %}#}
+
+{#{% endblock %}#}
+
+
+
+
+
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PostController!{% endblock %}
+{% block title %}Followings of {{ targetUser.username }}{% endblock %}
+
+{% block meta %}
+    <meta name="description" content="Explore the list of people {{ targetUser.username }} is following.">
+{% endblock %}
 
 {% block body %}
 
     <div class="container">
-        <h2>{{ targetUser.username }}'s followings : </h2>
+        <h2 id="followings-heading">{{ targetUser.username }}'s followings:</h2>
 
-            {% if followings is defined %}
+        {% if followings is defined %}
+            <section aria-labelledby="followings-heading">
                 {% for following in followings %}
-                    <div class="post-box">
+                    <div class="follow-box">
                         <ul>
                             <li>
-                                <a href="{{ path('app_user_profile', {'targetUser' : following.id}) }}">{{ following.username }}</a>
+                                <a href="{{ path('app_user_profile', {'targetUser' : following.id}) }}" aria-label="View profile of {{ following.username }}">{{ following.username }}</a>
                             </li>
                         </ul>
                     </div>
                 {% endfor %}
-            {% else %}
-
+            </section>
+        {% else %}
             <div class="post-box">
-                <p>Nobody's following Pierre</p>
+                <p>{{ targetUser.username }} is not following anyone</p>
             </div>
-
-            {% endif %}
+        {% endif %}
     </div>
 
-    {% include 'components/navbar.html.twig' %}
+    <nav role="navigation">
+        {% include 'components/navbar.html.twig' %}
+    </nav>
 
 {% endblock %}

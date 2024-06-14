@@ -4,7 +4,7 @@
 
 {% block body %}
 
-    <div class="navbar">
+    <nav class="navbar">
         <ul>
             <li>
                 <a href="{{ path('app_home', {'targetUser' : app.user.id }) }}"><i class="fa-solid fa-house"></i></a>
@@ -19,7 +19,7 @@
                 <a href="/logout"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
             </li>
         </ul>
-    </div>
+    </nav>
 
 
 {% endblock %}

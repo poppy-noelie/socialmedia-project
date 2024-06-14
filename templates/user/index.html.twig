@@ -1,58 +1,58 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello UserController!{% endblock %}
+{% block title %}Profile of {{ targetUser.username }}{% endblock %}
+
+{% block meta %}
+    <meta name="description" content="View the profile of {{ targetUser.username }}">
+{% endblock %}
 
 {% block body %}
 
-    <div class="container">
+    <main class="container">
         <h1 class="title">{{ targetUser.username }}</h1>
 
-        <div class="user-bar">
-            <img class="profile-picture" src="{{ asset('img/profile.picture.jpeg') }}" alt="">
-                <a href="{{ path('app_followers', {'targetUser' : targetUser.id}) }}">
-                    <p>Followers </p>
-                    <p>{{ followers|length }}</p>
-                </a>
-                <a href="{{ path('app_followings', {'targetUser' : targetUser.id}) }}">
-                    <p>Following </p>
-                    <p>{{ followings|length }}</p>
-                </a>
-                <a href="">
-                    <p>Posts</p>
-                    <p>{{ posts|length }}</p>
-                </a>
+        <section class="user-bar" aria-labelledby="user-bar-heading">
+            <img class="profile-picture" src="{{ asset('img/profile.picture.jpeg') }}" alt="Profile picture of {{ targetUser.username }}">
 
+            <a href="{{ path('app_followers', {'targetUser' : targetUser.id}) }}" aria-label="View followers of {{ targetUser.username }}">
+                <p>Followers</p>
+                <p>{{ followers|length }}</p>
+            </a>
+            <a href="{{ path('app_followings', {'targetUser' : targetUser.id}) }}" aria-label="View followings of {{ targetUser.username }}">
+                <p>Following</p>
+                <p>{{ followings|length }}</p>
+            </a>
+            <a href="" aria-label="View posts of {{ targetUser.username }}">
+                <p>Posts</p>
+                <p>{{ posts|length }}</p>
+            </a>
 
             {% if targetUser.id is not same as app.user.id %}
                 {% if isFollowing == false %}
-                    <a class="large-btn" href="{{ path('app_follow', {'targetUser': targetUser.id }) }}">follow</a>
+                    <a class="large-btn" href="{{ path('app_follow', {'targetUser': targetUser.id }) }}" aria-label="Follow {{ targetUser.username }}">follow</a>
                 {% endif %}
 
                 {% if isFollowing == true %}
-                    <a class="large-btn" href="{{ path('app_unfollow', {'targetUser': targetUser.id }) }}">unfollow</a>
+                    <a class="large-btn" href="{{ path('app_unfollow', {'targetUser': targetUser.id }) }}" aria-label="Unfollow {{ targetUser.username }}">unfollow</a>
                 {% endif %}
-            {% else%}
-                <a class="large-btn" href="">Your profile</a>
+            {% else %}
+                <a class="large-btn" href="" aria-label="View your profile">Your profile</a>
             {% endif %}
-
-
-
-        </div>
+        </section>
 
         {% if posts is empty %}
             <div class="post-box blank">
                 <p>No posts</p>
             </div>
+        {% else %}
+            {% for post in posts|reverse %}
+                {% include '/post/index.html.twig' %}
+            {% endfor %}
         {% endif %}
+    </main>
 
-        {% for post in posts|reverse %}
-            {% include '/post/index.html.twig' %}
-        {% endfor %}
-
-
-
-    </div>
-
+    <nav role="navigation">
         {% include 'components/navbar.html.twig' %}
+    </nav>
 
 {% endblock %}

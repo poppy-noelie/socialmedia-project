@@ -1,6 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PostController!{% endblock %}
+{% block title %}Create a New Post{% endblock %}
+
+{% block meta %}
+    <meta name="description" content="Create a new post on our app. Share your thoughts and engage with the community.">
+{% endblock %}
 
 {% block body %}
 
@@ -8,20 +12,22 @@
         <h1 class="title">Créer un post</h1>
 
         <div class="post-box login-box">
-
-            <div class="new-post-form">
-
-                {{ form(form) }}
+            <div class="new-post-form" role="form" aria-labelledby="form-title">
+                {{ form_start(form, {'attr': {'aria-labelledby': 'form-title'}}) }}
+                {{ form_widget(form) }}
+                {{ form_end(form) }}
             </div>
-                {% if flash is defined %}
-                    {% if flash.error %}
-                        <div class="alert alert-danger">{{ flash.error }}</div>
-                    {% endif %}
+
+            {% if flash is defined %}
+                {% if flash.error %}
+                    <div class="alert alert-danger" role="alert">{{ flash.error }}</div>
                 {% endif %}
+            {% endif %}
         </div>
 
-
-        {% include 'components/navbar.html.twig' %}
+        <nav role="navigation">
+            {% include 'components/navbar.html.twig' %}
+        </nav>
     </div>
 
 {% endblock %}

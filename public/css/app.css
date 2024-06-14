@@ -117,15 +117,29 @@ a {
     align-items: center;
     margin-top: 20vw;
     align-self: center;
+    opacity: 0; /* Initial state for animation */
+    animation: fadeInUp 1s ease-in-out forwards; /* Apply animation */
 }
 
 .welcome-box a {
-    margin: 5vw;
+    margin: 2vw 5vw;
 }
 
 .welcome-page .container-unlogged {
     display:flex;
     flex-direction: column;
+}
+
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 
@@ -138,6 +152,8 @@ a {
     margin-bottom: 5vw;
     padding: 5vw;
     border-radius: 25px;
+    opacity: 0;
+    animation: fadeInUp 1s ease-in-out forwards;
 }
 
 .post-content {
@@ -203,6 +219,24 @@ textarea {
     margin-left: auto;
     margin-right: 0;
     font-size: 2.5rem;
+}
+
+.follow-box {
+    background-color: #202124;
+    margin-bottom: 5vw;
+    padding: 5vw;
+    border-radius: 25px;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* FORMS */
@@ -389,6 +423,11 @@ textarea {
     .post-box {
         padding: 2vw;
         margin: 7vw;
+    }
+
+    .follow-box {
+        padding: 2vw;
+        margin: 1vw;
     }
 
     .post-footer button, .post-footer p {

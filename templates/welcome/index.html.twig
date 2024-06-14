@@ -1,21 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello WelcomeController!{% endblock %}
+{% block title %}Your gateway to share your life and creativity{% endblock %}
+
+{% block meta %}
+    <meta name="description" content="Login or sign up now!">
+{% endblock %}
 
 {% block body %}
 
-    <div class="welcome-page">
+    <main class="welcome-page">
 
-        <div class="container-unlogged">
-            <h1 class="title">Welcome ! </h1>
+        <section class="container-unlogged">
+            <h1 class="title">Welcome</h1>
 
-            <div class="post-box welcome-box">
-                <h3>Please sign up or login to access or app !</h3>
-                <a class="large-btn" href="{{ path('app_login') }}">Login</a>
-                <a class="large-btn" href="{{ path('app_register') }}">Sign Up</a>
+            <div class="post-box welcome-box" role="region" aria-labelledby="welcome-heading">
+                <h3 id="welcome-heading">Please sign up or login to access our app!</h3>
+                <a class="large-btn" href="{{ path('app_login') }}" aria-label="Login to your account">Login</a>
+                <a class="large-btn" href="{{ path('app_register') }}" aria-label="Sign up for a new account">Sign Up</a>
             </div>
 
-        </div>
-    </div>
+        </section>
+    </main>
 
 {% endblock %}

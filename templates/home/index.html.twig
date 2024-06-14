@@ -1,30 +1,36 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Welcome{% endblock %}
+
+{% block meta %}
+    <meta name="description" content="Explore the latest posts from people you follow.">
+{% endblock %}
 
 {% block body %}
 
-    <div class="container">
-        <div class="">
+    <main class="container">
+        <header role="banner">
             <h1 class="title">Home</h1>
-
-            {{ form(searchbar) }}
-        </div>
-
+            {{ form_start(searchbar, {'attr': {'aria-label': 'Search Form'}}) }}
+            {{ form_widget(searchbar) }}
+            {{ form_end(searchbar) }}
+        </header>
 
         {% if posts is empty %}
-            <div class="post-box blank">
-                <h3>Start following people to see their posts !</h3>
-            </div>
-            {% else %}
+            <section class="post-box blank" aria-labelledby="no-posts-heading">
+                <h2 id="no-posts-heading">Start following people to see their posts!</h2>
+            </section>
+        {% else %}
+            <section class="posts" aria-labelledby="posts-heading">
                 {% for post in posts %}
                     {% include '/post/index.html.twig' %}
                 {% endfor %}
+            </section>
         {% endif %}
+    </main>
 
-
-    </div>
-
-    {% include 'components/navbar.html.twig' %}
+    <nav role="navigation">
+        {% include 'components/navbar.html.twig' %}
+    </nav>
 
 {% endblock %}

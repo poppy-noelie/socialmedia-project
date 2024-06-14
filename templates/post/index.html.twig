@@ -1,74 +1,64 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-{#    {% for post in posts|reverse %}#}
+{% block title %}User Posts{% endblock %}
 
-            <div class="post-box">
-
-                <div class="user-post-bar">
-
-                    <img class="profile-picture" src="{{ asset('img/profile.picture.jpeg') }}" alt="">
-                    <div>
-                        <p>
-                            <a href="{{ path('app_user_profile', {'targetUser' : post.user.id}) }}">
-                                {{ post.user.username }}
-                            </a>
-                        </p>
-                        <p>publié le {{ post.createdAt|date("m/d/Y") }}</p>
-                    </div>
-
-                    {% if post.user.id is same as app.user.id  %}
-                        <a class="delete-btn" href="{{ path('app_post_delete', {'post' : post.id}) }}"><i class="fa-regular fa-trash-can"></i></a>
-                    {% endif %}
-                </div>
-
-
-                <div class="post-content">
-                    <h3>
-                        <a href="{{ path('app_post_show', {'post': post.id, 'targetUser': targetUser.id}) }}">{{ post.title }}</a>
-                    </h3>
-                    <p>{{ post.content }}</p>
-                </div>
-
-
-
-                <div class="post-footer">
-
-                    {% if isLiked[post.id] == false %}
-                        <a href="{{ path('app_post_like', {'post': post.id, 'targetUser': targetUser.id, }) }}"><i class="fa-regular fa-heart"></i></a>
-                    {% endif %}
-
-                    {% if isLiked[post.id] == true %}
-                        <a class="liked" href="{{ path('app_post_unlike', {'post': post.id, 'targetUser': targetUser.id, }) }}"><i class="fa-solid fa-heart"></i></a>
-
-                    {% endif %}
-
-
-
-                    <button class="remove-style-btn">{{ post.likes.count }} like(s)</button>
-
-
-                    {% if post.comments.count == 0 %}
-                        <p>Aucun commentaire</p>
-                    {% elseif post.comments.count == 1 %}
-                        <button id="show-comment-button" class="remove-style-btn" data-post="{{ post.id }}">Voir le commentaire</button>
-                    {% elseif post.comments.count > 1 %}
-                        <button id="show-comment-button" class="remove-style-btn" data-post="{{ post.id }}">Voir les {{ post.comments.count }} commentaires</button>
-                    {% endif %}
-
-                </div>
-
-
-
-                            <div class="comment-form">
-                                {% include '/post/comment.html.twig' %}
-                            </div>
-
-
-                <div class="" id="commentModale"></div>
-
-            </div>
-{#    {% endfor %}#}
+{% block meta %}
+    <meta name="description" content="Explore the latest posts from users in our community.">
 {% endblock %}
 
+{% block body %}
+    {% for post in posts|reverse %}
+        <article class="post-box" role="article" aria-labelledby="post-title-{{ post.id }}">
 
+            <header class="user-post-bar" role="banner">
+                <img class="profile-picture" src="{{ asset('img/profile.picture.jpeg') }}" alt="Profile picture of {{ post.user.username }}">
+                <div>
+                    <p>
+                        <a href="{{ path('app_user_profile', {'targetUser' : post.user.id}) }}">
+                            {{ post.user.username }}
+                        </a>
+                    </p>
+                    <p>Published on {{ post.createdAt|date("m/d/Y") }}</p>
+                </div>
+
+                {% if post.user.id is same as app.user.id %}
+                    <a class="delete-btn" href="{{ path('app_post_delete', {'post' : post.id}) }}" aria-label="Delete post by {{ post.user.username }}"><i class="fa-regular fa-trash-can"></i></a>
+                {% endif %}
+            </header>
+
+            <section class="post-content" aria-labelledby="post-title-{{ post.id }}">
+                <h3 id="post-title-{{ post.id }}">
+                    <a href="{{ path('app_post_show', {'post': post.id, 'targetUser': targetUser.id}) }}">{{ post.title }}</a>
+                </h3>
+                <p>{{ post.content }}</p>
+            </section>
+
+            <footer class="post-footer">
+                {% if isLiked[post.id] == false %}
+                    <a href="{{ path('app_post_like', {'post': post.id, 'targetUser': targetUser.id, }) }}" aria-label="Like post titled {{ post.title }}"><i class="fa-regular fa-heart"></i></a>
+                {% endif %}
+
+                {% if isLiked[post.id] == true %}
+                    <a class="liked" href="{{ path('app_post_unlike', {'post': post.id, 'targetUser': targetUser.id, }) }}" aria-label="Unlike post titled {{ post.title }}"><i class="fa-solid fa-heart"></i></a>
+                {% endif %}
+
+                <button class="remove-style-btn" aria-label="{{ post.likes.count }} likes">{{ post.likes.count }} like(s)</button>
+
+                {% if post.comments.count == 0 %}
+                    <p>No comments</p>
+                {% elseif post.comments.count == 1 %}
+                    <button id="show-comment-button" class="remove-style-btn" data-post="{{ post.id }}" aria-label="View the comment">View the comment</button>
+                {% elseif post.comments.count > 1 %}
+                    <button id="show-comment-button" class="remove-style-btn" data-post="{{ post.id }}" aria-label="View the {{ post.comments.count }} comments">View the {{ post.comments.count }} comments</button>
+                {% endif %}
+            </footer>
+
+            <div class="comment-form">
+                {% include '/post/comment.html.twig' %}
+            </div>
+
+            <div id="commentModale"></div>
+
+        </article>
+    {% endfor %}
+{% endblock %}

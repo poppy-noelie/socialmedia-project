@@ -1,32 +1,37 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PostController!{% endblock %}
+{% block title %}Followers of {{ targetUser.username }}{% endblock %}
+
+{% block meta %}
+    <meta name="description" content="Followers of {{ targetUser.username }}.">
+{% endblock %}
 
 {% block body %}
 
     <div class="container">
-        <h2>{{ targetUser.username }}'s followers : </h2>
+        <h2 id="followers-heading">{{ targetUser.username }}'s followers:</h2>
 
         {% if followers is defined %}
-            {% for follower in followers %}
-                <div class="post-box">
-                    <ul>
-                        <li>
-                            <a href="{{ path('app_user_profile', {'targetUser' : follower.id}) }}">{{ follower.username }}</a>
-                        </li>
-                    </ul>
-                </div>
-            {% endfor %}
+            <section aria-labelledby="followers-heading">
+                {% for follower in followers %}
+                    <div class="follow-box">
+                        <ul>
+                            <li>
+                                <a href="{{ path('app_user_profile', {'targetUser' : follower.id}) }}" aria-label="View profile of {{ follower.username }}">{{ follower.username }}</a>
+                            </li>
+                        </ul>
+                    </div>
+                {% endfor %}
+            </section>
         {% else %}
-
             <div class="post-box">
                 <p>{{ targetUser.username }} is not following anyone</p>
             </div>
-
         {% endif %}
     </div>
 
-    {% include 'components/navbar.html.twig' %}
-
+    <nav role="navigation">
+        {% include 'components/navbar.html.twig' %}
+    </nav>
 
 {% endblock %}
